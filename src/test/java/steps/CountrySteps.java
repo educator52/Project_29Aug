@@ -58,15 +58,9 @@ public class CountrySteps {
 
     @Then("^\"([^\"]*)\" is successfully \"([^\"]*)\"$")
     public void successfully_edited(String entityName, String outcome) {
+
+        String actual = pom.waitAndGetText(pom.alertDialogLocator);
         // Bug: sometimes alert is not appearing
-        String actual=null;
-        try{
-            actual = pom.waitAndGetText(pom.alertDialogLocator);
-        } catch (Exception e){ //if dialog box does nor appears
-            // here I am checking name in table
-            if(pom.hasNameOnTheTable(entityName))
-                System.out.println(e.getMessage());
-        }
 
         if(!actual.isEmpty()) {
             Assert.assertEquals(actual, entityName + " successfully " + outcome);
